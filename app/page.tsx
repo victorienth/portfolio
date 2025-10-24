@@ -8,10 +8,29 @@ import en from "app/languages/en.json";
 import es from "app/languages/es.json";
 
 type Lang = "fr" | "en" | "es";
-const MESSAGES = { fr, en, es } as const;
 
-function pick(obj: any, path: string) {
-  return path.split(".").reduce((acc, k) => (acc && acc[k] !== undefined ? acc[k] : undefined), obj);
+/** Dictionnaire générique profondément imbriqué */
+type Dict = Record<string, unknown>;
+
+/** Tous les messages, sans any */
+const MESSAGES: Record<Lang, Dict> = {
+  fr: fr as unknown as Dict,
+  en: en as unknown as Dict,
+  es: es as unknown as Dict,
+};
+
+/** Getter sûr pour un chemin "a.b.c" */
+function pick(obj: Dict, path: string): unknown {
+  const parts = path.split(".");
+  let cur: unknown = obj;
+  for (const k of parts) {
+    if (typeof cur === "object" && cur !== null && k in (cur as Record<string, unknown>)) {
+      cur = (cur as Record<string, unknown>)[k];
+    } else {
+      return undefined;
+    }
+  }
+  return cur;
 }
 
 export default function Page() {
@@ -29,9 +48,13 @@ export default function Page() {
     return () => window.removeEventListener("site_lang_changed", onChange);
   }, []);
 
+  // fonction de traduction
   const t = useMemo(() => {
-    const dict = MESSAGES[lang] as any;
-    return (key: string) => pick(dict, key) ?? key;
+    const dict = MESSAGES[lang];
+    return (key: string) => {
+      const v = pick(dict, key);
+      return typeof v === "string" ? v : key; // fallback: affiche la clé si manquante
+    };
   }, [lang]);
 
   return (
@@ -82,33 +105,29 @@ export default function Page() {
             <h2>{t("about.title")}</h2>
             <p>{t("about.text")}</p>
           </div>
-          <div className="card">
-  <h2>{t("contact.title")}</h2>
-  <div className="stack">
-    <a href="mailto:victorienthomas71@gmail.com" className="icon-link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 13.065L.015 6h23.97L12 13.065zM0 7.5v10.5h24V7.5l-12 6.75L0 7.5z"/>
-      </svg>
-      victorienthomas71@gmail.com
-    </a>
-
-    <a href="tel:+33640227176" className="icon-link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M6.62 10.79a15.093 15.093 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.58.11.33.03.7-.24 1.01l-2.21 2.2z"/>
-      </svg>
-      +33 6 40 22 71 76
-    </a>
-
-    <a href="https://www.linkedin.com/in/victorien-thomas-855776306"
-       target="_blank" rel="noreferrer" className="icon-link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.228.792 24 1.771 24h20.451C23.2 24 24 23.228 24 22.277V1.723C24 .771 23.2 0 22.225 0zM7.114 20.452H3.56V9h3.554v11.452zM5.337 7.433A2.07 2.07 0 013.27 5.366c0-1.142.924-2.066 2.067-2.066 1.14 0 2.066.924 2.066 2.066 0 1.141-.926 2.067-2.066 2.067zm15.11 13.019h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.37-1.852 3.601 0 4.268 2.37 4.268 5.455v6.288z"/>
-      </svg>
-      linkedin.com/in/victorien-thomas
-    </a>
-  </div>
-</div>
-
+          <div className="card" id="contact">
+            <h2>{t("contact.title")}</h2>
+            <div className="stack">
+              <a href="mailto:victorienthomas71@gmail.com" className="icon-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 13.065L.015 6h23.97L12 13.065zM0 7.5v10.5h24V7.5l-12 6.75L0 7.5z"/>
+                </svg>
+                victorienthomas71@gmail.com
+              </a>
+              <a href="tel:+33640227176" className="icon-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.62 10.79a15.093 15.093 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.07 21 3 13.93 3 5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.58.11.33.03.7-.24 1.01l-2.21 2.2z"/>
+                </svg>
+                +33 6 40 22 71 76
+              </a>
+              <a href="https://www.linkedin.com/in/victorien-thomas-855776306" target="_blank" rel="noreferrer" className="icon-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.228.792 24 1.771 24h20.451C23.2 24 24 23.228 24 22.277V1.723C24 .771 23.2 0 22.225 0zM7.114 20.452H3.56V9h3.554v11.452zM5.337 7.433A2.07 2.07 0 013.27 5.366c0-1.142.924-2.066 2.067-2.066 1.14 0 2.066.924 2.066 2.066 0 1.141-.926 2.067-2.066 2.067zm15.11 13.019h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.852 3.37-1.852 3.601 0 4.268 2.37 4.268 5.455v6.288z"/>
+                </svg>
+                linkedin.com/in/victorien-thomas
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -227,7 +246,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* CONTACT (formulaire) */}
       <section id="contact">
         <div className="wrap">
           <h2>{t("contact.title")}</h2>
