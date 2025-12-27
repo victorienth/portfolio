@@ -48,16 +48,6 @@
     "aeroportDesc2": "Análisis de infraestructuras actuales e integración de energías renovables y tecnologías futuras para reducir el consumo y avanzar hacia un aeropuerto sostenible.",
     "aeroportCta": "Leer el informe"
   },
-  "hobbies": {
-    "title": "Aficiones",
-    "sport": "Deporte",
-    "sportDesc1": "El deporte siempre ha sido importante: 8 años de fútbol y 3 de remo me enseñaron trabajo en equipo, solidaridad y perseverancia.",
-    "sportDesc2": "Hoy hago mucho ciclismo de ruta. Con dos amigos cruzamos Francia (~1600 km), una experiencia de resistencia y superación.",
-    "patisserie": "Repostería",
-    "patisserieDesc": "Cocinar me relaja—sobre todo la repostería. Me gusta la precisión y la creatividad de buscar nuevos sabores para compartir.",
-    "musique": "Música",
-    "musiqueDesc": "Pasión reciente gracias a amigos. La música es un canal creativo; toco el piano desde hace 3 años."
-  },
   "contact": {
     "title": "Contacto",
     "send": "Enviar",

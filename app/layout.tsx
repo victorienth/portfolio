@@ -5,7 +5,7 @@ import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Portfolio – Victorien Thomas",
-  description: "Portfolio simple : à propos, projets, loisirs, contact.",
+  description: "Portfolio simple : à propos, projets, contact.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <nav className="nav">
             <a id="nav-about" href="#about">À propos</a>
             <a id="nav-projects" href="#projects">Projets</a>
-            <a id="nav-hobbies" href="#hobbies">Loisirs</a>
             <a id="nav-contact" href="#contact">Contact</a>
           </nav>
 
@@ -48,9 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {`
             (function () {
               const T = {
-                fr: { about: "À propos", projects: "Projets", hobbies: "Loisirs", contact: "Contact" },
-                en: { about: "About", projects: "Projects", hobbies: "Hobbies", contact: "Contact" },
-                es: { about: "Sobre mí", projects: "Proyectos", hobbies: "Pasatiempos", contact: "Contacto" }
+                fr: { about: "À propos", projects: "Projets", contact: "Contact" },
+                en: { about: "About", projects: "Projects", contact: "Contact" },
+                es: { about: "Sobre mí", projects: "Proyectos", contact: "Contacto" }
               };
 
               const $ = id => document.getElementById(id);
@@ -60,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
               }
 
-              // 🔊 NOUVEAU : prévenir le reste du site
+              // 🔊 prévenir le reste du site
               function broadcast(lang) {
                 try { window.dispatchEvent(new CustomEvent("site_lang_changed", { detail: lang })); } catch {}
               }
@@ -68,13 +67,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               function applyLang(lang) {
                 const d = T[lang] || T.fr;
                 document.documentElement.setAttribute("lang", lang);
+
                 $("nav-about").textContent = d.about;
                 $("nav-projects").textContent = d.projects;
-                $("nav-hobbies").textContent = d.hobbies;
                 $("nav-contact").textContent = d.contact;
+
                 localStorage.setItem("site_lang", lang);
                 setActive(lang);
-                broadcast(lang); // ← important
+                broadcast(lang);
               }
 
               // Charger la langue (URL ?lang=xx > localStorage > fr)

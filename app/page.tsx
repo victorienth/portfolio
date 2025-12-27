@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 // langues
-import fr from "app/languages/fr.json";
-import en from "app/languages/en.json";
-import es from "app/languages/es.json";
+import fr from "./languages/fr.json";
+import en from "./languages/en.json";
+import es from "./languages/es.json";
+
 
 type Lang = "fr" | "en" | "es";
 
@@ -77,6 +78,7 @@ export default function Page() {
                 </svg>
                 {t("contact.email")}
               </a>
+
               {/* Téléphone */}
               <a href="tel:+33640227176" className="icon-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -84,6 +86,7 @@ export default function Page() {
                 </svg>
                 {t("contact.phone")}
               </a>
+
               {/* LinkedIn */}
               <a href="https://www.linkedin.com/in/victorien-thomas-855776306" target="_blank" rel="noreferrer" className="icon-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -91,8 +94,11 @@ export default function Page() {
                 </svg>
                 {t("contact.linkedin")}
               </a>
+
               {/* CV */}
-              <a className="btn" href="/CV_VictorienThomas.pdf" target="_blank" rel="noreferrer">{t("contact.cv")}</a>
+              <a className="btn" href="/CV_VictorienThomas.pdf" target="_blank" rel="noreferrer">
+                {t("contact.cv")}
+              </a>
             </div>
           </div>
         </div>
@@ -195,54 +201,29 @@ export default function Page() {
           <h2>{t("projects.title")}</h2>
           <div className="projects-grid">
             <article className="card">
-              <img src="/esa.png" alt={t("projects.esa")} className="project-img"/>
+              <img src="/esa.png" alt={t("projects.esa")} className="project-img" />
               <h3>{t("projects.esa")}</h3>
               <p>{t("projects.esaDesc1")}</p>
               <p>{t("projects.esaDesc2")}</p>
             </article>
+
             <article className="card">
-              <img src="/f1.png" alt={t("projects.ipsaF1")} className="project-img"/>
+              <img src="/f1.png" alt={t("projects.ipsaF1")} className="project-img" />
               <h3>{t("projects.ipsaF1")}</h3>
               <p>{t("projects.ipsaF1Desc1")}</p>
               <p>{t("projects.ipsaF1Desc2")}</p>
             </article>
+
             <article className="card">
-              <img src="/aero.png" alt={t("projects.aeroport")} className="project-img"/>
+              <img src="/aero.png" alt={t("projects.aeroport")} className="project-img" />
               <h3>{t("projects.aeroport")}</h3>
               <p>{t("projects.aeroportDesc1")}</p>
               <p>{t("projects.aeroportDesc2")}</p>
-              <a href="/aeroport_vert.pdf" target="_blank" rel="noreferrer" className="btn">{t("projects.aeroportCta")}</a>
+              <a href="/aeroport_vert.pdf" target="_blank" rel="noreferrer" className="btn">
+                {t("projects.aeroportCta")}
+              </a>
             </article>
           </div>
-        </div>
-      </section>
-
-      {/* LOISIRS */}
-      <section id="hobbies">
-        <div className="wrap">
-          <h2>{t("hobbies.title")}</h2>
-          <article className="hobby-card">
-            <img src="/sport.jpg" alt={t("hobbies.sport")} />
-            <div>
-              <h3>{t("hobbies.sport")}</h3>
-              <p>{t("hobbies.sportDesc1")}</p>
-              <p>{t("hobbies.sportDesc2")}</p>
-            </div>
-          </article>
-          <article className="hobby-card">
-            <img src="/pat.png" alt={t("hobbies.patisserie")} />
-            <div>
-              <h3>{t("hobbies.patisserie")}</h3>
-              <p>{t("hobbies.patisserieDesc")}</p>
-            </div>
-          </article>
-          <article className="hobby-card">
-            <img src="/musique.png" alt={t("hobbies.musique")} />
-            <div>
-              <h3>{t("hobbies.musique")}</h3>
-              <p>{t("hobbies.musiqueDesc")}</p>
-            </div>
-          </article>
         </div>
       </section>
 
@@ -250,7 +231,12 @@ export default function Page() {
       <section id="contact">
         <div className="wrap">
           <h2>{t("contact.title")}</h2>
-          <form className="card" style={{ display: "grid", gap: "10px" }} action={t("contact.formActionHint")} method="POST">
+          <form
+            className="card"
+            style={{ display: "grid", gap: "10px" }}
+            action={t("contact.formActionHint")}
+            method="POST"
+          >
             <input className="input" name="name" placeholder={t("contact.formName")} required />
             <input className="input" name="email" type="email" placeholder={t("contact.formEmail")} required />
             <textarea className="textarea" name="message" placeholder={t("contact.formMessage")} required />

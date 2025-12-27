@@ -154,6 +154,7 @@ h2 { margin: 0 0 12px; font-size: 22px; color: var(--accent); }
   color: var(--accent);
   transform: translateY(-2px);
 }
+
 /* ===== Liens avec icône ===== */
 .icon-link {
   display: inline-flex;
@@ -169,57 +170,28 @@ h2 { margin: 0 0 12px; font-size: 22px; color: var(--accent); }
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  fill: currentColor; /* suit la couleur du texte */
+  fill: currentColor;
 }
 
 .icon-link:hover {
   color: var(--accent);
   transform: translateY(-1px);
 }
-/* Projets en ligne avec image + contenu */
+
 /* ===== Projets ===== */
 .projects-grid {
   display: grid;
-  grid-template-columns: 1fr; /* 1 projet par ligne */
+  grid-template-columns: 1fr;
   gap: 22px;
 }
 
 .project-img {
   width: 100%;
-  height: 550px;          /* fixe une hauteur uniforme */
-  object-fit: cover;      /* garde les proportions et coupe proprement */
+  height: 550px;
+  object-fit: cover;
   border-radius: 14px;
   margin-bottom: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-}
-
-
-/* Loisirs en ligne (comme ESA avant) */
-.hobby-card {
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.28);
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 18px;
-  backdrop-filter: blur(20px) saturate(200%) contrast(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(200%) contrast(120%);
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.1), 0 10px 30px rgba(0,0,0,0.2);
-  transition: transform .25s, box-shadow .25s;
-}
-
-.hobby-card:hover {
-  transform: translateY(-4px);
-  box-shadow: inset 0 0 25px rgba(255,255,255,0.12), 0 14px 36px rgba(0,0,0,0.28);
-}
-
-.hobby-card img {
-  width: 140px;
-  height: 100px;
-  border-radius: 14px;
-  object-fit: cover;
 }
 
 /* === Sélecteur de langue === */
@@ -258,15 +230,16 @@ h2 { margin: 0 0 12px; font-size: 22px; color: var(--accent); }
   object-fit: cover;
   border-radius: 3px;
 }
+
 .stack {
   display: grid;
-  gap: 10px; /* espace vertical entre chaque ligne */
+  gap: 10px;
 }
 
 .icon-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* espace entre icône et texte */
+  gap: 8px;
   text-decoration: none;
   color: inherit;
 }
